@@ -34,7 +34,7 @@ export default function Home() {
           backgroundImage="/Beach Scene with Woman.png"
           title="Bem-vindo à"
           titleHighlight="Agra Productora"
-          description="Criamos experiências audiovisuais excepcionais que conectam com o seu público e elevam a sua marca."
+          description="Criamos experiências audiovisuais excepcionais que conectam\ncom o seu público e elevam a sua marca."
           primaryButtonText="Ver Nossos Trabalhos"
           secondaryButtonText="Saber Mais"
           onPrimaryClick={handlePrimaryClick}

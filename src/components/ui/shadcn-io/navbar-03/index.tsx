@@ -11,10 +11,13 @@ import {
   NavigationMenuList,
 } from '../../navigation-menu';
 import {
-  Popover,
-  PopoverContent,
-  PopoverTrigger,
-} from '../../popover';
+  Drawer,
+  DrawerContent,
+  DrawerHeader,
+  DrawerTitle,
+  DrawerTrigger,
+  DrawerClose,
+} from '../../drawer';
 import { cn } from '@/lib/utils';
 import type { ComponentProps } from 'react';
 
@@ -105,7 +108,7 @@ export const Navbar03 = React.forwardRef<HTMLElement, Navbar03Props>(
       const checkWidth = () => {
         if (containerRef.current) {
           const width = containerRef.current.offsetWidth;
-          setIsMobile(width < 768); // 768px is md breakpoint
+          setIsMobile(width < 1024); // 1024px is lg breakpoint - more space for mobile menu
         }
       };
 
@@ -141,6 +144,7 @@ export const Navbar03 = React.forwardRef<HTMLElement, Navbar03Props>(
       }
     }, [ref]);
     return (
+      <>
       <header
         ref={combinedRef}
         className={cn(
@@ -152,52 +156,61 @@ export const Navbar03 = React.forwardRef<HTMLElement, Navbar03Props>(
         )}
         {...props}
       >
-        <div className="container mx-auto flex h-16 max-w-screen-2xl items-center justify-between gap-4 px-6">
+        <div className="container mx-auto flex h-14 md:h-16 max-w-screen-2xl items-center justify-between gap-2 px-4 md:px-6">
           {/* Left side */}
           <div className="flex items-center gap-2">
             {/* Mobile menu trigger */}
             {isMobile && (
-              <Popover>
-                <PopoverTrigger asChild>
+              <Drawer>
+                <DrawerTrigger asChild>
                   <Button
-                    className="group h-9 w-9 hover:bg-accent hover:text-accent-foreground"
+                    className="group h-8 w-8 hover:bg-accent hover:text-accent-foreground mr-2"
                     variant="ghost"
                     size="icon"
                   >
                     <HamburgerIcon />
                   </Button>
-                </PopoverTrigger>
-                <PopoverContent align="start" className="w-64 p-1">
-                  <NavigationMenu className="max-w-none">
-                    <NavigationMenuList className="flex-col items-start gap-0">
-                      {navigationLinks.map((link, index) => (
-                        <NavigationMenuItem key={index} className="w-full">
-                          <button
-                            onClick={(e) => e.preventDefault()}
-                            className={cn(
-                              'flex w-full items-center rounded-md px-3 py-2 text-base font-medium transition-colors hover:bg-accent hover:text-accent-foreground focus:bg-accent focus:text-accent-foreground cursor-pointer no-underline',
-                              link.active && 'bg-accent text-accent-foreground'
-                            )}
-                          >
-                            {link.label}
-                          </button>
-                        </NavigationMenuItem>
-                      ))}
-                    </NavigationMenuList>
-                  </NavigationMenu>
-                </PopoverContent>
-              </Popover>
+                </DrawerTrigger>
+                <DrawerContent>
+                  <DrawerHeader>
+                    <DrawerTitle className="text-center">
+                      <span className="text-xl font-bold">Agra Productora</span>
+                    </DrawerTitle>
+                  </DrawerHeader>
+                  <div className="px-4 pb-4">
+                    <NavigationMenu className="max-w-none">
+                      <NavigationMenuList className="flex-col items-start gap-2">
+                        {navigationLinks.map((link, index) => (
+                          <NavigationMenuItem key={index} className="w-full">
+                            <DrawerClose asChild>
+                              <button
+                                onClick={(e) => e.preventDefault()}
+                                className={cn(
+                                  'flex w-full items-center justify-center rounded-md px-4 py-4 text-base font-medium transition-colors hover:bg-accent hover:text-accent-foreground focus:bg-accent focus:text-accent-foreground cursor-pointer no-underline',
+                                  link.active && 'bg-accent text-accent-foreground'
+                                )}
+                              >
+                                {link.label}
+                              </button>
+                            </DrawerClose>
+                          </NavigationMenuItem>
+                        ))}
+                      </NavigationMenuList>
+                    </NavigationMenu>
+                  </div>
+                </DrawerContent>
+              </Drawer>
             )}
             {/* Logo */}
-            <button
-              onClick={(e) => e.preventDefault()}
-              className="flex items-center space-x-2 text-primary hover:text-primary/90 transition-colors cursor-pointer"
-            >
-              <div className="text-2xl">
-                {logo}
-              </div>
-              <span className="hidden font-bold text-3xl sm:inline-block">Agra Productora</span>
-            </button>
+              <button
+                onClick={(e) => e.preventDefault()}
+                className="flex items-center space-x-1 md:space-x-2 text-primary hover:text-primary/90 transition-colors cursor-pointer"
+              >
+                <div className="text-lg md:text-2xl">
+                  {logo}
+                </div>
+                <span className="font-bold text-lg sm:text-xl md:text-3xl">Agra Productora</span>
+              </button>
           </div>
           {/* Right side - Navigation menu */}
           {!isMobile && (
@@ -254,7 +267,8 @@ export const Navbar03 = React.forwardRef<HTMLElement, Navbar03Props>(
           )}
         </div>
       </header>
-    );
+    </>
+  );
   }
 );
 

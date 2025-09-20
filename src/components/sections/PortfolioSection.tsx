@@ -91,14 +91,14 @@ const galleryImages = [
 
 export const PortfolioSection = () => {
   return (
-    <section className="py-20 bg-background">
+    <section className="py-12 sm:py-16 md:py-20 bg-background">
       <div className="container mx-auto px-4">
         <AnimatedSection delay={200}>
-          <div className="text-center mb-16">
-            <h2 className="text-4xl md:text-5xl font-bold mb-4">
+          <div className="text-center mb-8 sm:mb-12 md:mb-16">
+            <h2 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold mb-3 sm:mb-4">
               Nossa Galeria
             </h2>
-            <p className="text-xl text-muted-foreground">
+            <p className="text-base sm:text-lg md:text-xl text-muted-foreground">
               Momentos capturados pelos nossos projetos
             </p>
           </div>
@@ -106,7 +106,7 @@ export const PortfolioSection = () => {
         
         <AnimatedSection delay={400}>
           {/* Instagram-style grid with balanced layout */}
-          <div className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-6 gap-2">
+          <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 gap-1 sm:gap-2">
           {galleryImages.map((item, index) => {
             // Para crear un grid balanceado, alternamos entre diferentes configuraciones
             const isReel = item.type === "reel";
@@ -140,21 +140,21 @@ export const PortfolioSection = () => {
                   </div>
                 )}
                 
-                {/* Overlay on hover */}
-                <div className="absolute inset-0 bg-black/60 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center">
+                {/* Overlay on hover - hidden on mobile for better performance */}
+                <div className="absolute inset-0 bg-black/60 opacity-0 group-hover:opacity-100 transition-opacity duration-300 hidden sm:flex items-center justify-center">
                   <div className="text-center text-white">
-                    <div className="flex items-center gap-4 mb-2">
+                    <div className="flex items-center gap-2 sm:gap-4 mb-2">
                       <div className="flex items-center gap-1">
-                        <svg className="w-5 h-5" fill="currentColor" viewBox="0 0 20 20">
+                        <svg className="w-4 h-4 sm:w-5 sm:h-5" fill="currentColor" viewBox="0 0 20 20">
                           <path fillRule="evenodd" d="M3.172 5.172a4 4 0 015.656 0L10 6.343l1.172-1.171a4 4 0 115.656 5.656L10 17.657l-6.828-6.829a4 4 0 010-5.656z" clipRule="evenodd" />
                         </svg>
-                        <span className="text-sm font-medium">{item.likes}</span>
+                        <span className="text-xs sm:text-sm font-medium">{item.likes}</span>
                       </div>
                       <div className="flex items-center gap-1">
-                        <svg className="w-5 h-5" fill="currentColor" viewBox="0 0 20 20">
+                        <svg className="w-4 h-4 sm:w-5 sm:h-5" fill="currentColor" viewBox="0 0 20 20">
                           <path fillRule="evenodd" d="M18 10c0 3.866-3.582 7-8 7a8.841 8.841 0 01-4.083-.98L2 17l1.338-3.123C2.493 12.767 2 11.434 2 10c0-3.866 3.582-7 8-7s8 3.134 8 7zM7 9H5v2h2V9zm8 0h-2v2h2V9zM9 9h2v2H9V9z" clipRule="evenodd" />
                         </svg>
-                        <span className="text-sm font-medium">{item.comments}</span>
+                        <span className="text-xs sm:text-sm font-medium">{item.comments}</span>
                       </div>
                     </div>
                   </div>
@@ -167,9 +167,9 @@ export const PortfolioSection = () => {
         
         <AnimatedSection delay={600}>
           {/* Call to action */}
-          <div className="text-center mt-12">
+          <div className="text-center mt-8 sm:mt-12">
             <button 
-              className="bg-primary text-primary-foreground hover:bg-primary/90 px-8 py-3 rounded-lg font-semibold transition-colors focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2"
+              className="bg-primary text-primary-foreground hover:bg-primary/90 px-6 sm:px-8 py-2 sm:py-3 rounded-lg font-semibold transition-colors focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2 text-sm sm:text-base"
               aria-label="Ver mais imagens no Instagram"
             >
               Ver Mais no Instagram
