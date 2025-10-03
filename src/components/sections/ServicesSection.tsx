@@ -5,50 +5,35 @@ import { AnimatedSection } from "@/components/ui/AnimatedSection";
 
 const services = [
   {
-    title: "AGRA PRODUTORA",
-    description: "Produção audiovisual completa com qualidade profissional.",
+    title: "Agência de Turismo",
+    description: "Oferecemos <strong>aventuras personalizadas</strong> para quem busca mais do que simplesmente viajar. Se você é uma empresa que precisa de pacotes exclusivos ou alguém que deseja explorar novos destinos com a certeza de uma <strong>experiência única</strong>, nós criamos a viagem dos seus sonhos.",
+    icon: "✈️"
+  },
+  {
+    title: "Produção Audiovisual",
+    description: "De <strong>vídeos criativos</strong> a <strong>filmes institucionais</strong>, nossa missão é capturar a <strong>essência da sua marca</strong> e contar <strong>histórias emocionantes</strong>. Se você precisa de conteúdo para campanhas, eventos ou redes sociais, temos a produção certa para você.",
     icon: "🎬"
   },
   {
-    title: "AGRA Mentoria",
-    description: "Orientação especializada para profissionais do audiovisual.",
+    title: "Agência de Marketing Digital",
+    description: "Se o seu negócio precisa de <strong>visibilidade online</strong>, nós temos a <strong>estratégia</strong> ideal. Da <strong>criação de campanhas</strong> à <strong>gestão de redes sociais</strong>, entregamos <strong>resultados concretos</strong> que fazem sua marca se destacar no meio digital.",
+    icon: "📱"
+  },
+  {
+    title: "Agência de UGC (User Generated Content)",
+    description: "Quer gerar conteúdo <strong>autêntico</strong>? Você está no lugar certo! Trabalhamos com <strong>marcas</strong> e <strong>influenciadores</strong> para criar conteúdo <strong>real e engajador</strong> que fala diretamente com seu público. Vamos colocar sua marca onde ela realmente precisa estar: na <strong>boca do povo</strong>.",
+    icon: "👥"
+  },
+  {
+    title: "Consultoria e Assessoria",
+    description: "Às vezes, você só precisa de um <strong>empurrãozinho</strong> para começar. Oferecemos <strong>consultoria estratégica</strong> para quem quer se destacar no mercado ou <strong>otimizar sua presença digital</strong>. Ajudamos a definir estratégias de <strong>marketing</strong>, <strong>branding</strong> e a estruturar seu projeto com base no que realmente funciona.",
+    icon: "💡"
+  },
+  {
+    title: "Palestras & Treinamentos",
+    description: "<strong>Angela Agra</strong>, além de liderar a Agra Produtora, compartilha seu conhecimento por meio de <strong>palestras</strong> e <strong>treinamentos</strong>. Se você é um <strong>empreendedor</strong> que quer crescer no mercado digital ou alguém que deseja aprender mais sobre <strong>UGC</strong>, temos o treinamento perfeito para você!",
     icon: "🎓"
   },
-  {
-    title: "Produção de Eventos e Projetos",
-    description: "Organização e execução de eventos corporativos e especiais.",
-    icon: "🎪"
-  },
-  {
-    title: "AGRA EVENTO",
-    description: "Soluções completas para eventos de todos os tamanhos.",
-    icon: "🎉"
-  },
-  {
-    title: "Serviços Criativos",
-    description: "Design, branding e soluções criativas personalizadas.",
-    icon: "🎨"
-  },
-  {
-    title: "PORTFOLIO",
-    description: "Desenvolvimento e gestão de portfólios profissionais.",
-    icon: "📁"
-  },
-  {
-    title: "Serviços Complementares",
-    description: "Suporte técnico e logístico para projetos audiovisuais.",
-    icon: "🔧"
-  },
-  {
-    title: "Gestão e Estratégia",
-    description: "Planejamento estratégico e gestão de projetos criativos.",
-    icon: "📊"
-  },
-  {
-    title: "Outros Segmentos",
-    description: "Soluções personalizadas para diferentes áreas de atuação.",
-    icon: "🌟"
-  }
 ];
 
 // Imagens do portfolio para o 3D Marquee
@@ -92,13 +77,13 @@ export const ServicesSection = () => {
     <section className="py-12 sm:py-16 md:py-20 bg-muted/50">
       <div className="container mx-auto px-4">
         {/* 3D Marquee Section */}
-        <div className="mx-auto max-w-7xl rounded-2xl sm:rounded-3xl bg-gray-950/5 p-2 ring-1 ring-neutral-700/10 dark:bg-neutral-800 mb-8 sm:mb-12 md:mb-16">
+        {/* <div className="mx-auto max-w-7xl rounded-2xl sm:rounded-3xl bg-gray-950/5 p-2 ring-1 ring-neutral-700/10 dark:bg-neutral-800 mb-8 sm:mb-12 md:mb-16">
           <div className="text-center mb-4 sm:mb-6 md:mb-8">
             <h3 className="text-lg sm:text-xl md:text-2xl font-bold mb-2">Nossos Trabalhos em Ação</h3>
             <p className="text-sm sm:text-base text-muted-foreground">Veja alguns dos nossos projetos mais recentes</p>
           </div>
           <ThreeDMarquee images={portfolioImages} />
-        </div>
+        </div> */}
 
         <AnimatedSection delay={200}>
           <div className="text-center mb-8 sm:mb-12 md:mb-16">
@@ -119,7 +104,10 @@ export const ServicesSection = () => {
                 {service.icon}
               </div>
               <h3 className="text-lg sm:text-xl font-semibold mb-2 group-hover:text-primary transition-colors duration-300">{service.title}</h3>
-              <p className="text-sm sm:text-base text-muted-foreground group-hover:text-foreground transition-colors duration-300">{service.description}</p>
+              <p 
+                className="text-sm sm:text-base text-muted-foreground group-hover:text-foreground transition-colors duration-300"
+                dangerouslySetInnerHTML={{ __html: service.description }}
+              />
             </div>
           ))}
           </div>

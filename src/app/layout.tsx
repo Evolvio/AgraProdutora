@@ -20,6 +20,11 @@ export const metadata: Metadata = {
   creator: "Agra Productora",
   publisher: "Agra Productora",
   robots: "index, follow",
+  icons: {
+    icon: "/AGRA - A.png",
+    shortcut: "/AGRA - A.png",
+    apple: "/AGRA - A.png",
+  },
   openGraph: {
     type: "website",
     locale: "pt_BR",

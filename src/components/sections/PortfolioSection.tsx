@@ -1,88 +1,90 @@
 'use client';
 
+import { useState, useEffect, useRef } from 'react';
 import { AnimatedSection } from "@/components/ui/AnimatedSection";
+import { Dialog, DialogContent, DialogHeader, DialogTitle } from "@/components/ui/dialog";
 
 const galleryImages = [
   {
     id: 1,
-    image: "/Beach Scene with Woman.png",
+    image: "/gallery/reel-1.mp4",
     likes: 124,
     comments: 8,
-    type: "reel" // Vertical
+    type: "reel" // Video
   },
   {
     id: 2,
-    image: "/Yoga Practice in Serene Outdoor Setting.png",
+    image: "/gallery/1 (5).jpg",
     likes: 89,
     comments: 12,
     type: "post" // Cuadrado
   },
   {
     id: 3,
-    image: "/Glamorous Party Scene.png",
+    image: "/gallery/reel-2.mp4",
     likes: 156,
     comments: 23,
-    type: "reel" // Vertical
+    type: "reel" // Video
   },
   {
     id: 4,
-    image: "/Celebratory Party Scene.png",
+    image: "/gallery/1 (8).jpg",
     likes: 203,
     comments: 15,
     type: "post" // Cuadrado
   },
   {
     id: 5,
-    image: "/Dazzling Festival Dancer.png",
+    image: "/gallery/reel-3.mp4",
     likes: 178,
     comments: 19,
-    type: "reel" // Vertical
+    type: "reel" // Video
   },
   {
     id: 6,
-    image: "/Beach Scene with Woman.png",
+    image: "/gallery/1 (9).jpg",
     likes: 95,
     comments: 6,
     type: "post" // Cuadrado
   },
   {
     id: 7,
-    image: "/Yoga Practice in Serene Outdoor Setting.png",
+    image: "/gallery/reel-4.mp4",
     likes: 142,
     comments: 11,
-    type: "reel" // Vertical
+    type: "reel" // Video
   },
   {
     id: 8,
-    image: "/Glamorous Party Scene.png",
+    image: "/gallery/1 (19).jpg",
     likes: 167,
     comments: 14,
     type: "post" // Cuadrado
   },
   {
     id: 9,
-    image: "/Celebratory Party Scene.png",
+    image: "/gallery/reel-5.mp4",
     likes: 134,
     comments: 9,
-    type: "reel" // Vertical
+    type: "reel" // Video
   },
   {
     id: 10,
-    image: "/Dazzling Festival Dancer.png",
+    image: "/gallery/1 (22).jpg",
     likes: 189,
     comments: 17,
     type: "post" // Cuadrado
   },
   {
     id: 11,
-    image: "/Beach Scene with Woman.png",
+    image: "/gallery/reel-6.mp4",
     likes: 112,
     comments: 7,
-    type: "reel" // Vertical
+    type: "reel" // Video
   },
   {
     id: 12,
-    image: "/Yoga Practice in Serene Outdoor Setting.png",
+    image: "/gallery/1 (24).jpg",
     likes: 145,
     comments: 13,
     type: "post" // Cuadrado
@@ -90,6 +92,48 @@ const galleryImages = [
 ];
 
 export const PortfolioSection = () => {
+  const [selectedVideo, setSelectedVideo] = useState<string | null>(null);
+  const [isVideoOpen, setIsVideoOpen] = useState(false);
+  const [selectedImage, setSelectedImage] = useState<string | null>(null);
+  const [isImageOpen, setIsImageOpen] = useState(false);
+  const videoRefs = useRef<{ [key: string]: HTMLVideoElement | null }>({});
+
+  const handleVideoClick = (videoSrc: string) => {
+    setSelectedVideo(videoSrc);
+    setIsVideoOpen(true);
+  };
+
+  const handleCloseVideo = () => {
+    setIsVideoOpen(false);
+    setSelectedVideo(null);
+  };
+
+  const handleImageClick = (imageSrc: string) => {
+    setSelectedImage(imageSrc);
+    setIsImageOpen(true);
+  };
+
+  const handleCloseImage = () => {
+    setIsImageOpen(false);
+    setSelectedImage(null);
+  };
+
+  const handleVideoRef = (video: HTMLVideoElement | null, videoSrc: string) => {
+    if (video) {
+      videoRefs.current[videoSrc] = video;
+      
+      // Para videos problemáticos, configuramos el tiempo después de un delay
+      if (videoSrc.includes('reel-4') || videoSrc.includes('reel-5')) {
+        setTimeout(() => {
+          if (video && video.readyState >= 2) { // HAVE_CURRENT_DATA
+            video.currentTime = 2; // 2 segundos adelante
+            video.pause();
+          }
+        }, 500);
+      }
+    }
+  };
+
   return (
     <section className="py-12 sm:py-16 md:py-20 bg-background">
       <div className="container mx-auto px-4">
@@ -123,12 +167,34 @@ export const PortfolioSection = () => {
                       : "col-span-1 row-span-1 aspect-square" // Posts normales
                 }`}
               >
-                <img 
-                  src={item.image} 
-                  alt={`Imagem da galeria ${item.id} - ${item.type === 'reel' ? 'Reel' : 'Post'} com ${item.likes} curtidas`}
-                  className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-300"
-                  loading="lazy"
-                />
+                {item.image.endsWith('.mp4') ? (
+                  <button
+                    onClick={() => handleVideoClick(item.image)}
+                    className="w-full h-full focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2 rounded-lg"
+                  >
+                    <video 
+                      ref={(video) => handleVideoRef(video, item.image)}
+                      src={item.image} 
+                      className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-300"
+                      muted
+                      loop
+                      playsInline
+                      preload="metadata"
+                    />
+                  </button>
+                ) : (
+                  <button
+                    onClick={() => handleImageClick(item.image)}
+                    className="w-full h-full focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2"
+                  >
+                    <img 
+                      src={item.image} 
+                      alt={`Imagem da galeria ${item.id} - ${item.type === 'reel' ? 'Reel' : 'Post'} com ${item.likes} curtidas`}
+                      className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-300"
+                      loading="lazy"
+                    />
+                  </button>
+                )}
                 
                 {/* Reel indicator */}
                 {isReel && (
@@ -141,7 +207,7 @@ export const PortfolioSection = () => {
                 )}
                 
                 {/* Overlay on hover - hidden on mobile for better performance */}
-                <div className="absolute inset-0 bg-black/60 opacity-0 group-hover:opacity-100 transition-opacity duration-300 hidden sm:flex items-center justify-center">
+                <div className="absolute inset-0 bg-black/60 opacity-0 group-hover:opacity-100 transition-opacity duration-300 hidden sm:flex items-center justify-center pointer-events-none">
                   <div className="text-center text-white">
                     <div className="flex items-center gap-2 sm:gap-4 mb-2">
                       <div className="flex items-center gap-1">
@@ -177,6 +243,45 @@ export const PortfolioSection = () => {
           </div>
         </AnimatedSection>
       </div>
+
+      {/* Video Player Modal */}
+      <Dialog open={isVideoOpen} onOpenChange={handleCloseVideo}>
+        <DialogContent className="max-w-2xl w-full p-0 bg-black">
+          <DialogHeader className="sr-only">
+            <DialogTitle>Reproducir Video</DialogTitle>
+          </DialogHeader>
+          {selectedVideo && (
+            <video 
+              src={selectedVideo}
+              className="w-full h-auto max-h-[80vh] object-contain"
+              controls
+              autoPlay
+              preload="metadata"
+            />
+          )}
+        </DialogContent>
+      </Dialog>
+
+      {/* Image Viewer Modal */}
+      <Dialog open={isImageOpen} onOpenChange={handleCloseImage}>
+        <DialogContent 
+          className="max-w-4xl w-full p-0 bg-black border-0 focus:outline-none [&>button]:text-white [&>button]:hover:text-gray-300 [&>button]:text-3xl [&>button]:font-bold [&>button]:bg-gray-800 [&>button]:hover:bg-gray-700 [&>button]:rounded-full [&>button]:w-10 [&>button]:h-10 [&>button]:flex [&>button]:items-center [&>button]:justify-center [&>button]:shadow-md [&>button]:border [&>button]:border-gray-600" 
+          onOpenAutoFocus={(e) => e.preventDefault()}
+        >
+          <DialogHeader className="sr-only">
+            <DialogTitle>Ver Imagen</DialogTitle>
+          </DialogHeader>
+          {selectedImage && (
+            <div className="relative focus:outline-none">
+              <img 
+                src={selectedImage}
+                alt="Imagen ampliada de la galería"
+                className="w-full h-auto max-h-[90vh] object-contain rounded-lg"
+              />
+            </div>
+          )}
+        </DialogContent>
+      </Dialog>
     </section>
   );
 };

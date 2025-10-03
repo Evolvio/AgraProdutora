@@ -1,75 +1,50 @@
 'use client';
 
-import { Button } from "@/components/ui/button";
+import { useState, useRef } from 'react';
+import { Volume2, VolumeX } from 'lucide-react';
 
-interface HeroSectionProps {
-  backgroundImage: string;
-  title: string;
-  titleHighlight: string;
-  description: string;
-  primaryButtonText: string;
-  secondaryButtonText: string;
-  onPrimaryClick?: () => void;
-  onSecondaryClick?: () => void;
-}
+export const HeroSection = () => {
+  const [isMuted, setIsMuted] = useState(true);
+  const videoRef = useRef<HTMLVideoElement>(null);
 
-export const HeroSection = ({
-  backgroundImage,
-  title,
-  titleHighlight,
-  description,
-  primaryButtonText,
-  secondaryButtonText,
-  onPrimaryClick,
-  onSecondaryClick,
-}: HeroSectionProps) => {
+  const toggleMute = () => {
+    if (videoRef.current) {
+      videoRef.current.muted = !videoRef.current.muted;
+      setIsMuted(videoRef.current.muted);
+    }
+  };
+
   return (
-    <section className="relative h-[600px] sm:h-[700px] md:h-[800px] lg:h-[900px] w-full">
-      {/* Background Image */}
-      <div 
-        className="absolute inset-0 bg-cover bg-center bg-no-repeat"
-        style={{
-          backgroundImage: `url('${backgroundImage}')`,
-        }}
-        role="img"
-        aria-label="Imagem de fundo da seção hero"
-      />
+    <section className="relative h-[600px] sm:h-[700px] md:h-[800px] lg:h-[900px] w-full overflow-hidden">
+      {/* Background Video */}
+      <video
+        ref={videoRef}
+        className="absolute inset-0 w-full h-full object-cover"
+        autoPlay
+        muted
+        loop
+        playsInline
+        aria-label="Vídeo de fundo da seção hero"
+      >
+        <source src="/video-hero.mp4" type="video/mp4" />
+        Seu navegador não suporta vídeos HTML5.
+      </video>
       
-      {/* Content */}
-      <div className="relative z-10 w-full px-4 h-full flex items-start lg:items-start items-center justify-center pt-32 lg:pt-32">
-        <div className="text-center lg:text-left space-y-4 sm:space-y-6 md:space-y-8 lg:space-y-8 max-w-4xl mx-auto lg:max-w-2xl lg:ml-32">
-          <h1 className="text-2xl sm:text-3xl md:text-4xl lg:text-4xl xl:text-6xl font-bold tracking-tight text-white leading-tight">
-            {title}{" "}
-            <span className="text-primary">{titleHighlight}</span>
-          </h1>
-          <p className="text-sm sm:text-base md:text-lg lg:text-xl text-white max-w-2xl mx-auto lg:mx-0 leading-relaxed">
-            {description.split('\\n').map((line, index) => (
-              <span key={index}>
-                {line}
-                {index < description.split('\\n').length - 1 && <br />}
-              </span>
-            ))}
-          </p>
-          <div className="flex flex-col sm:flex-row lg:flex-row gap-3 sm:gap-4 lg:gap-4 justify-center lg:justify-start items-center">
-            <Button 
-              variant="default"
-              size="lg"
-              className="w-full sm:w-auto lg:w-auto px-6 py-3 text-sm sm:text-base"
-              onClick={onPrimaryClick}
-            >
-              {primaryButtonText}
-            </Button>
-            <Button 
-              variant="glass"
-              size="lg"
-              className="w-full sm:w-auto lg:w-auto px-6 py-3 text-sm sm:text-base"
-              onClick={onSecondaryClick}
-            >
-              {secondaryButtonText}
-            </Button>
-          </div>
-        </div>
-      </div>
+      {/* Overlay opcional para mejor contraste si es necesario */}
+      <div className="absolute inset-0 bg-black/20" />
+      
+      {/* Sound Toggle Button */}
+      <button
+        onClick={toggleMute}
+        className="absolute bottom-4 right-4 z-10 p-3 bg-black/50 hover:bg-black/70 text-white rounded-full transition-all duration-300 backdrop-blur-sm border border-white/20 hover:border-white/40"
+        aria-label={isMuted ? "Ativar som do vídeo" : "Desativar som do vídeo"}
+      >
+        {isMuted ? (
+          <VolumeX size={20} />
+        ) : (
+          <Volume2 size={20} />
+        )}
+      </button>
     </section>
   );
 };

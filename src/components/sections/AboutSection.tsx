@@ -12,9 +12,11 @@ export const AboutSection = () => {
               Quem Somos
             </h2>
             <p className="text-base sm:text-lg md:text-xl text-muted-foreground leading-relaxed">
-              A Agra Productora é uma empresa especializada em produção audiovisual, 
-              dedicada a criar experiências visuais excepcionais que contam histórias 
-              únicas e conectam marcas com seus públicos de forma autêntica e impactante.
+              Somos o ponto de encontro de soluções criativas para todos
+              os segmentos digitais. Nossa fundadora, Angela Agra, é uma apaixonada por
+              transformar ideias em ações e, como palestrante, compartilha sua experiência com
+              empreendedores e UGC. Se você quer entender como se destacar no mundo
+              digital, a Agra Produtora é o seu lugar
             </p>
           </div>
         </AnimatedSection>

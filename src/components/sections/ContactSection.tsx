@@ -22,18 +22,18 @@ export const ContactSection = () => {
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-8 mb-8 sm:mb-10 md:mb-12">
             <div className="text-center">
               <div className="text-2xl sm:text-3xl mb-3 sm:mb-4">📧</div>
-              <h3 className="text-base sm:text-lg font-semibold mb-2">Email</h3>
-              <p className="text-sm sm:text-base text-muted-foreground">contato@agraproductora.com</p>
+              <h3 className="text-base sm:text-lg font-semibold mb-2">E-mail</h3>
+              <p className="text-sm sm:text-base text-muted-foreground">comercial@agraprodutora.com</p>
             </div>
             <div className="text-center">
               <div className="text-2xl sm:text-3xl mb-3 sm:mb-4">📱</div>
-              <h3 className="text-base sm:text-lg font-semibold mb-2">Telefone</h3>
-              <p className="text-sm sm:text-base text-muted-foreground">+55 (11) 99999-9999</p>
+              <h3 className="text-base sm:text-lg font-semibold mb-2">Contato</h3>
+              <p className="text-sm sm:text-base text-muted-foreground">21 97371-7137</p>
             </div>
             <div className="text-center sm:col-span-2 lg:col-span-1">
               <div className="text-2xl sm:text-3xl mb-3 sm:mb-4">📍</div>
               <h3 className="text-base sm:text-lg font-semibold mb-2">Localização</h3>
-              <p className="text-sm sm:text-base text-muted-foreground">São Paulo, Brasil</p>
+              <p className="text-sm sm:text-base text-muted-foreground">Rio de Janeiro</p>
             </div>
           </div>
         </AnimatedSection>
