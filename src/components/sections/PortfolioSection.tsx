@@ -3,6 +3,7 @@
 import { useState, useEffect, useRef } from 'react';
 import { AnimatedSection } from "@/components/ui/AnimatedSection";
 import { Dialog, DialogContent, DialogHeader, DialogTitle } from "@/components/ui/dialog";
+import { useAudio } from '@/contexts/AudioContext';
 
 const galleryImages = [
   {
@@ -97,16 +98,30 @@ export const PortfolioSection = () => {
   const [selectedImage, setSelectedImage] = useState<string | null>(null);
   const [isImageOpen, setIsImageOpen] = useState(false);
   const videoRefs = useRef<{ [key: string]: HTMLVideoElement | null }>({});
+  const { pauseHeroAudio, resumeHeroAudio } = useAudio();
 
   const handleVideoClick = (videoSrc: string) => {
     setSelectedVideo(videoSrc);
     setIsVideoOpen(true);
+    // Pausar el audio del hero cuando se abre un reel
+    pauseHeroAudio();
   };
 
   const handleCloseVideo = () => {
     setIsVideoOpen(false);
     setSelectedVideo(null);
+    // Reanudar el audio del hero cuando se cierra el reel
+    resumeHeroAudio();
   };
+
+  // Efecto para manejar el cierre del modal de video
+  useEffect(() => {
+    if (!isVideoOpen && selectedVideo) {
+      // Si el modal se cierra pero aún hay un video seleccionado, limpiar y reanudar audio
+      setSelectedVideo(null);
+      resumeHeroAudio();
+    }
+  }, [isVideoOpen, selectedVideo, resumeHeroAudio]);
 
   const handleImageClick = (imageSrc: string) => {
     setSelectedImage(imageSrc);
