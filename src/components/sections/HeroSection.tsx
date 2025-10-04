@@ -58,7 +58,6 @@ export const HeroSection = () => {
         className="absolute inset-0 w-full h-full object-cover"
         autoPlay
         muted={isHeroMuted}
-        volume={heroVolume}
         loop
         playsInline
         aria-label="Vídeo de fundo da seção hero"
